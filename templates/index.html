@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garbage Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Garbage Detection Site</h1>
+    
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Upload Image</button>
+    </form>
+
+    {% if uploaded_image %}
+    <h2>Uploaded Image:</h2>
+    <img src="{{ uploaded_image }}" alt="Uploaded Image" width="300">
+    {% endif %}
+    
+    {% if result %}
+    <h2>{{ result }}</h2>
+    {% endif %}
+    
+    {% if detected_image %}
+    <h2>Detected Image:</h2>
+    <img src="{{ detected_image }}" alt="Detected Image" width="300">
+    {% endif %}
+    
+    {% if uploaded_image %}
+    <form action="/detect" method="POST">
+        <input type="hidden" name="image_path" value="{{ uploaded_image }}">
+        <button type="submit">Detect Garbage</button>
+    </form>
+    {% endif %}
+</body>
+</html>
